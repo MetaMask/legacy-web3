@@ -2,12 +2,12 @@
   "name": "@metamask/legacy-web3",
   "version": "1.0.0",
   "description": "MetaMask's legacy window.web3.",
-  "main": "dist/bundle.js",
+  "browser": "dist/bundle.js",
   "files": [
     "dist/bundle.js"
   ],
   "scripts": {
-    "build": "rollup --config",
+    "build": "rollup --config && ./postprocess.sh",
     "lint": "eslint . --ext js,json",
     "lint:fix": "eslint . --ext js,json --fix",
     "prepare": "yarn lint:fix && yarn build",
