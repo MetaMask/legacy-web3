@@ -1,6 +1,4 @@
-/* global Web3 */
-
-require('web3/dist/web3.min.js')
+import 'web3/dist/web3.min.js'
 
 setupWeb3()
 

@@ -1,8 +1,7 @@
 module.exports = {
-  env: {
-    browser: true,
-    commonjs: true,
-    es6: true,
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
   },
   extends: [
     '@metamask/eslint-config',
@@ -12,18 +11,18 @@ module.exports = {
     'json',
   ],
   globals: {
-    document: false,
-    navigator: false,
     web3: true,
-    window: false,
-    $: false,
-    QUnit: false,
+    Web3: true,
+    window: true,
   },
-  parserOptions: {
-    ecmaVersion: 2018,
+  rules: {
+    'import/unambiguous': 'off',
+    'import/extensions': 'off',
+    'import/no-unassigned-import': 'off',
   },
   ignorePatterns: [
     '!.eslintrc.js',
     'node_modules/',
+    'dist/',
   ],
 }
