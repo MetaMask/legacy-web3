@@ -8,23 +8,32 @@ setupWeb3()
 function setupWeb3 () {
 
   if (window.ethereum === undefined) {
-    console.warn('MetaMask - @metamask/legacy-web3 did not detect window.ethereum. Exiting without initializing window.web3.')
+    console.warn('@metamask/legacy-web3 - Failed to detect window.ethereum. Exiting without initializing window.web3.')
+    return
+  }
+
+  if (window.ethereum && window.ethereum.isMetaMask && window.web3 !== undefined) {
+    console.warn('@metamask/legacy-web3 - Detected existing MetaMask window.ethereum and window.web3. Exiting without initializing window.web3.')
     return
   }
 
   if (window.web3 !== undefined) {
-    throw new Error(`MetaMask detected another window.web3.
+    throw new Error(`@metamask/legacy-web3 - Detected another window.web3.
       MetaMask will not work reliably with another web3 extension.
       This usually happens if you have two MetaMasks installed,
       or MetaMask and another web3 extension. Please remove one
       and try again.`)
   }
 
+  if (window.ethereum && !window.ethereum.isMetaMask) {
+    console.warn('@metamask/legacy-web3 - Detected non-MetaMask window.ethereum. Proceeding to initialize window.web3, but may experience undefined behavior.')
+  }
+
   const web3 = new Web3(window.ethereum)
   web3.setProvider = function () {
-    console.log('MetaMask - overrode web3.setProvider')
+    console.log('@metamask/legacy-web3 - overrode web3.setProvider')
   }
-  console.log('MetaMask - injected web3')
+  console.log('@metamask/legacy-web3 - injected web3')
 
   window.ethereum._web3Ref = web3.eth
 
@@ -32,17 +41,11 @@ function setupWeb3 () {
   let reloadInProgress = false
   let lastTimeUsed
   let previousChainId
-  let hasBeenWarned = false
 
   const web3Proxy = new Proxy(web3, {
     get: (_web3, key) => {
       // get the time of use
       lastTimeUsed = Date.now()
-      // show warning once on web3 access
-      if (!hasBeenWarned && key !== 'currentProvider') {
-        console.warn(`MetaMask: We will soon stop injecting web3. For more information, see: https://medium.com/metamask/no-longer-injecting-web3-js-4a899ad6e59e`)
-        hasBeenWarned = true
-      }
       // return value normally
       return _web3[key]
     },
