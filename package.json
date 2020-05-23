@@ -2,9 +2,9 @@
   "name": "@metamask/legacy-web3",
   "version": "1.0.0",
   "description": "MetaMask's legacy window.web3.",
-  "browser": "dist/bundle.js",
+  "browser": "dist/metamask.web3.min.js",
   "files": [
-    "dist/bundle.js"
+    "dist/metamask.web3.min.js"
   ],
   "scripts": {
     "build": "rollup --config && ./postprocess.sh",

@@ -4,7 +4,7 @@ const { terser } = require('rollup-plugin-terser')
 module.exports = {
   input: 'index.js',
   output: {
-    file: 'dist/bundle.js',
+    file: 'dist/metamask.web3.min.js',
     format: 'iife',
   },
   plugins: [
