@@ -1,2 +1,3 @@
-# legacy-web3
-MetaMask's legacy window.web3.
+# @metamask/legacy-web3
+
+MetaMask's legacy `window.web3`.
