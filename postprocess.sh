@@ -22,7 +22,7 @@ function main() {
   # web3.min.js includes implicit "require" statements, and we have to declare
   # the variable to get our bundle to run in the browser.
   # Rollup can't handle it
-  sed -i "" -e "s#${FIND}#${REPLACE}#" "${BUNDLE_FILE_PATH}" || abort "sed failed"
+  sed -i -e "s#${FIND}#${REPLACE}#" "${BUNDLE_FILE_PATH}" || abort "sed failed"
 
   echo "postprocess: success!"
 }
