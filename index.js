@@ -14,7 +14,7 @@ function setupWeb3 () {
 
   // if used before MetaMask stops injecting window.web3
   if (window.ethereum && window.ethereum.isMetaMask && window.web3 !== undefined) {
-    console.warn('@metamask/legacy-web3 - Detected MetaMask window.ethereum and window.web3. Exiting without initializing window.web3.')
+    console.log('@metamask/legacy-web3 - Detected MetaMask window.ethereum and window.web3. Exiting without initializing window.web3.')
     return
   }
 
