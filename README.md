@@ -15,7 +15,7 @@ Require as a `<script>` in your web page:
   </head>
   <body>
     ...
-    <script src="https://unpkg.com/browse/@metamask/legacy-web3@1.0.0/dist/metamask.web3.min.js" defer></script>
+    <script src="https://unpkg.com/browse/@metamask/legacy-web3@latest/dist/metamask.web3.min.js" defer></script>
   </body>
 </html>
 ```
