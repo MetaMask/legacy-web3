@@ -8,21 +8,19 @@ setupWeb3()
 function setupWeb3 () {
 
   if (window.ethereum === undefined) {
-    console.warn('@metamask/legacy-web3 - Failed to detect window.ethereum. Exiting without initializing window.web3.')
+    console.error('@metamask/legacy-web3 - Failed to detect window.ethereum. Exiting without initializing window.web3.')
     return
   }
 
+  // if used before MetaMask stops injecting window.web3
   if (window.ethereum && window.ethereum.isMetaMask && window.web3 !== undefined) {
-    console.warn('@metamask/legacy-web3 - Detected existing MetaMask window.ethereum and window.web3. Exiting without initializing window.web3.')
+    console.warn('@metamask/legacy-web3 - Detected MetaMask window.ethereum and window.web3. Exiting without initializing window.web3.')
     return
   }
 
   if (window.web3 !== undefined) {
-    throw new Error(`@metamask/legacy-web3 - Detected another window.web3.
-      MetaMask will not work reliably with another web3 extension.
-      This usually happens if you have two MetaMasks installed,
-      or MetaMask and another web3 extension. Please remove one
-      and try again.`)
+    console.error('@metamask/legacy-web3 - Detected existing window.web3. Exiting without initializing window.web3.')
+    return
   }
 
   if (window.ethereum && !window.ethereum.isMetaMask) {
