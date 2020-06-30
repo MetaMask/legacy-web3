@@ -13,8 +13,6 @@ module.exports = {
     commonjs({
       sourceMap: false,
     }),
-    terser({
-      ecma: 5,
-    }),
+    terser(),
   ],
 }

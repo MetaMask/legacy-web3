@@ -7,7 +7,7 @@
     "dist/metamask.web3.min.js"
   ],
   "scripts": {
-    "build": "rollup --config",
+    "build": "rollup -c",
     "lint": "eslint . --ext js,json",
     "lint:fix": "eslint . --ext js,json --fix",
     "prepare": "yarn lint && yarn build",
@@ -25,6 +25,7 @@
   "homepage": "https://github.com/MetaMask/legacy-web3#readme",
   "dependencies": {},
   "devDependencies": {
+    "@metamask/detect-provider": "^1.1.0",
     "@metamask/eslint-config": "^2.1.1",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",

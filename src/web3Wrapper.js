@@ -1,4 +1,8 @@
+const detectEthereumProvider = require('@metamask/detect-provider')
 require('web3/dist/web3.min.js')
+
+const getMessage = (message) => `@metamask/legacy-web3 - ${message}`
+const getExitMessage = (message) => `${getMessage(message)} Exiting without initializing window.web3.`
 
 setupWeb3()
 
@@ -8,94 +12,112 @@ setupWeb3()
 function setupWeb3 () {
 
   if (window.ethereum === undefined) {
-    console.error('@metamask/legacy-web3 - Failed to detect window.ethereum. Exiting without initializing window.web3.')
-    return
+    detectEthereumProvider({ silent: true })
+      .then((_provider) => {
+        if (window.ethereum === undefined) {
+          console.log(getExitMessage('Failed to detect window.ethereum.'))
+        } else {
+          _setupWeb3()
+        }
+      })
+  } else {
+    _setupWeb3()
   }
 
-  // if used before MetaMask stops injecting window.web3
-  if (window.ethereum && window.ethereum.isMetaMask && window.web3 !== undefined) {
-    console.log('@metamask/legacy-web3 - Detected MetaMask window.ethereum and window.web3. Exiting without initializing window.web3.')
-    return
-  }
+  function _setupWeb3 () {
 
-  if (window.web3 !== undefined) {
-    console.error('@metamask/legacy-web3 - Detected existing window.web3. Exiting without initializing window.web3.')
-    return
-  }
-
-  if (window.ethereum && !window.ethereum.isMetaMask) {
-    console.warn('@metamask/legacy-web3 - Detected non-MetaMask window.ethereum. Proceeding to initialize window.web3, but may experience undefined behavior.')
-  }
-
-  const web3 = new Web3(window.ethereum)
-  web3.setProvider = function () {
-    console.log('@metamask/legacy-web3 - overrode web3.setProvider')
-  }
-  console.log('@metamask/legacy-web3 - injected web3')
-
-  window.ethereum._web3Ref = web3.eth
-
-  // export web3 as a global, checking for usage
-  let reloadInProgress = false
-  let lastTimeUsed
-  let previousChainId
-
-  const web3Proxy = new Proxy(web3, {
-    get: (_web3, key) => {
-      // get the time of use
-      lastTimeUsed = Date.now()
-      // return value normally
-      return _web3[key]
-    },
-    set: (_web3, key, value) => {
-      // set value normally
-      _web3[key] = value
-    },
-  })
-
-  Object.defineProperty(window, 'web3', {
-    enumerable: false,
-    writable: true,
-    configurable: true,
-    value: web3Proxy,
-  })
-
-  window.ethereum.on('chainChanged', (currentChainId) => {
-    // if the auto refresh on network change is false do not
-    // do anything
-    if (!window.ethereum.autoRefreshOnNetworkChange) {
+    // if used before MetaMask stops injecting window.web3
+    if (window.ethereum && window.ethereum.isMetaMask && window.web3 !== undefined) {
+      console.log(getExitMessage('Detected MetaMask window.ethereum and window.web3.'))
       return
     }
 
-    // if reload in progress, no need to check reload logic
-    if (reloadInProgress) {
+    if (window.web3 !== undefined) {
+      console.log(getExitMessage('Detected existing window.web3.'))
       return
     }
 
-    // set the initial chain
-    if (!previousChainId) {
-      previousChainId = currentChainId
-      return
+    if (window.ethereum && !window.ethereum.isMetaMask) {
+      console.warn(getMessage(
+        'Detected non-MetaMask window.ethereum. ' +
+        'Proceeding to initialize window.web3, but may experience undefined behavior.',
+      ))
     }
 
-    // skip reload logic if web3 not used
-    if (!lastTimeUsed) {
-      return
+    if (!('autoRefreshOnNetworkChange' in window.ethereum)) {
+      window.ethereum.autoRefreshOnNetworkChange = true
     }
 
-    // if chain did not change, exit
-    if (currentChainId === previousChainId) {
-      return
+    const web3 = new Web3(window.ethereum)
+    web3.setProvider = function () {
+      console.log(getMessage('Overrode web3.setProvider.'))
     }
+    console.log(getMessage('Injected web3.'))
 
-    // initiate page reload
-    reloadInProgress = true
-    const timeSinceUse = Date.now() - lastTimeUsed
-    // if web3 was recently used then delay the reloading of the page
-    if (timeSinceUse > 500) {
-      window.location.reload()
-    } else {
-      setTimeout(window.location.reload, 500)
-    }
-  })
+    window.ethereum._web3Ref = web3.eth
+
+    // export web3 as a global, checking for usage
+    let reloadInProgress = false
+    let lastTimeUsed
+    let previousChainId
+
+    const web3Proxy = new Proxy(web3, {
+      get: (_web3, key) => {
+        // get the time of use
+        lastTimeUsed = Date.now()
+        // return value normally
+        return _web3[key]
+      },
+      set: (_web3, key, value) => {
+        // set value normally
+        _web3[key] = value
+      },
+    })
+
+    Object.defineProperty(window, 'web3', {
+      enumerable: false,
+      writable: true,
+      configurable: true,
+      value: web3Proxy,
+    })
+
+    window.ethereum.on('chainChanged', (currentChainId) => {
+      // if the auto refresh on network change is false do not
+      // do anything
+      if (!window.ethereum.autoRefreshOnNetworkChange) {
+        return
+      }
+
+      // if reload in progress, no need to check reload logic
+      if (reloadInProgress) {
+        return
+      }
+
+      // set the initial chain
+      if (!previousChainId) {
+        previousChainId = currentChainId
+        return
+      }
+
+      // skip reload logic if web3 not used
+      if (!lastTimeUsed) {
+        return
+      }
+
+      // if chain did not change, exit
+      if (currentChainId === previousChainId) {
+        return
+      }
+
+      // initiate page reload
+      reloadInProgress = true
+      const timeSinceUse = Date.now() - lastTimeUsed
+      // if web3 was recently used then delay the reloading of the page
+      if (timeSinceUse > 500) {
+        window.location.reload()
+      } else {
+        setTimeout(window.location.reload, 500)
+      }
+    })
+  }
 }
