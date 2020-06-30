@@ -1,14 +1,18 @@
-const { default: resolve } = require('@rollup/plugin-node-resolve')
-const { terser } = require('rollup-plugin-terser')
+import resolve from '@rollup/plugin-node-resolve'
+import commonjs from '@rollup/plugin-commonjs'
+import { terser } from 'rollup-plugin-terser'
 
 module.exports = {
-  input: 'index.js',
+  input: 'src/web3Wrapper.js',
   output: {
     file: 'dist/metamask.web3.min.js',
     format: 'iife',
   },
   plugins: [
     resolve(),
+    commonjs({
+      sourceMap: false,
+    }),
     terser({
       ecma: 5,
     }),

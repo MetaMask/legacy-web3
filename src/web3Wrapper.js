@@ -1,4 +1,4 @@
-import 'web3/dist/web3.min.js'
+require('web3/dist/web3.min.js')
 
 setupWeb3()
 
