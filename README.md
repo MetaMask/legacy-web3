@@ -28,12 +28,8 @@ As a `<script>` in your web page:
 ```html
 <html>
   <head>
-    <!--
-      The legacy-web3 script must run BEFORE your scripts.
-      The order of other external scripts may or may not matter.
-      We recommend using "defer" for your scripts and the legacy-web3 script.
-    -->
-    <script defer src="https://unpkg.com/browse/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
+    <!-- The legacy-web3 script must run BEFORE your other scripts. -->
+    <script src="https://unpkg.com/browse/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
     ...
   </head>
   <body>
@@ -60,7 +56,7 @@ import '@metamask/legacy-web3`
 require('@metamask/legacy-web3')
 
 const { web3 } = window
-const selectedAddress = web3.eth.accounts
+const selectedAddress = web3.eth.defaultAccount
 ```
 
 ### Initialization Criteria
