@@ -1,5 +1,5 @@
-const detectEthereumProvider = require('@metamask/detect-provider')
 require('web3/dist/web3.min.js')
+const detectEthereumProvider = require('@metamask/detect-provider')
 
 const getMessage = (message) => `@metamask/legacy-web3 - ${message}`
 const getExitMessage = (message) => `${getMessage(message)} Exiting without initializing window.web3.`
@@ -11,28 +11,34 @@ setupWeb3()
  */
 function setupWeb3 () {
 
-  if (window.ethereum === undefined) {
+  if (window.ethereum) {
+    _setupWeb3()
+  } else {
     detectEthereumProvider({ silent: true })
       .then((_provider) => {
-        if (window.ethereum === undefined) {
-          console.log(getExitMessage('Failed to detect window.ethereum.'))
-        } else {
+        if (window.ethereum) {
           _setupWeb3()
+        } else {
+          console.log(getExitMessage('Failed to detect window.ethereum.'))
         }
       })
-  } else {
-    _setupWeb3()
+      .catch((error) => {
+        console.error(
+          getExitMessage('Unexpected error when detecting window.ethereum.'),
+          error,
+        )
+      })
   }
 
   function _setupWeb3 () {
 
     // if used before MetaMask stops injecting window.web3
-    if (window.ethereum && window.ethereum.isMetaMask && window.web3 !== undefined) {
-      console.log(getExitMessage('Detected MetaMask window.ethereum and window.web3.'))
+    if (window.ethereum && window.ethereum.isMetaMask && window.web3) {
+      console.log(getExitMessage('Detected MetaMask-injected window.web3.'))
       return
     }
 
-    if (window.web3 !== undefined) {
+    if (window.web3) {
       console.log(getExitMessage('Detected existing window.web3.'))
       return
     }
