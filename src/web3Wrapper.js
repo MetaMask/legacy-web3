@@ -54,7 +54,11 @@ function setupWeb3 () {
     }
     console.log(getMessage('Injected web3.'))
 
-    window.ethereum._web3Ref = web3.eth
+    window.ethereum.on('accountsChanged', (accounts) => {
+      web3.eth.defaultAccount = Array.isArray(accounts) && accounts.length > 0
+        ? accounts[0]
+        : null
+    })
 
     // export web3 as a global, checking for usage
     let reloadInProgress = false
