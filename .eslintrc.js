@@ -19,7 +19,6 @@ module.exports = {
     'import/unambiguous': 'off',
     'import/extensions': 'off',
     'import/no-unassigned-import': 'off',
-    'no-negated-conditions': 'off',
   },
   ignorePatterns: [
     '!.eslintrc.js',
