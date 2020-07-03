@@ -4,7 +4,8 @@ MetaMask's legacy `window.web3`.
 
 ## Motivation
 
-_MetaMask **strongly** recommends that you convert to [another convenience library](https://www.npmjs.com/package/ethers) or to using [our Ethereum Provider API](https://docs.metamask.io/guide/ethereum-provider.html), rather than rely on this module._
+_MetaMask **strongly** recommends that you [read our migration guide](https://docs.metamask.io/guide/provider-migration.html#replacing-window-web3) before using this package._
+_You should only rely on this package if you need a temporary fix or are no longer actively developing your web3 site._
 
 In the near future, MetaMask will stop injecting `window.web3` into web pages.
 **When we do this, if your website relies on MetaMask's `window.web3` to function, it will break on that date unless you take action.**
@@ -49,7 +50,7 @@ npm install @metamask/legacy-web3
 ```
 
 ```javascript
-import '@metamask/legacy-web3`
+import '@metamask/legacy-web3'
 
 // or
 
