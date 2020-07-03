@@ -1,6 +1,6 @@
 {
   "name": "@metamask/legacy-web3",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MetaMask's legacy window.web3.",
   "browser": "dist/metamask.web3.min.js",
   "files": [
