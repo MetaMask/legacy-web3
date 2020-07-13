@@ -30,7 +30,7 @@ As a `<script>` in your web page:
 <html>
   <head>
     <!-- The legacy-web3 script must run BEFORE your other scripts. -->
-    <script src="https://unpkg.com/browse/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
+    <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
     ...
   </head>
   <body>
