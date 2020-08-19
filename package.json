@@ -26,7 +26,7 @@
   "dependencies": {},
   "devDependencies": {
     "@metamask/detect-provider": "^1.1.0",
-    "@metamask/eslint-config": "^3.0.0",
+    "@metamask/eslint-config": "^3.1.0",
     "@rollup/plugin-commonjs": "^13.0.0",
     "@rollup/plugin-node-resolve": "^8.1.0",
     "eslint": "^6.8.0",
