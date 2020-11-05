@@ -10,7 +10,7 @@
     "build": "rollup -c",
     "lint": "eslint . --ext js,json",
     "lint:fix": "eslint . --ext js,json --fix",
-    "prepare": "yarn lint && yarn build",
+    "prepublishOnly": "yarn lint && yarn build",
     "test": "yarn lint"
   },
   "repository": "git@github.com:MetaMask/legacy-web3.git",
