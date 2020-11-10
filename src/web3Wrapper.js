@@ -60,9 +60,9 @@ function setupWeb3 () {
      * or because the provider is being injected late for another reason (platform specific).
      */
     const lazyProvider = new Proxy(window.ethereum, {
-      get: function(target, prop, receiver) {
-        return Reflect.get(window.ethereum, prop, receiver);
-      }
+      get (_target, prop, receiver) {
+        return Reflect.get(window.ethereum, prop, receiver)
+      },
     })
 
     const web3 = new Web3(lazyProvider)
