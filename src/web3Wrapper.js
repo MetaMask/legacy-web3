@@ -54,7 +54,19 @@ function setupWeb3 () {
       window.ethereum.autoRefreshOnNetworkChange = true
     }
 
-    const web3 = new Web3(window.ethereum)
+    /*
+     * We now construct a lazy provider in case this script is run before the ethereum provider is injected.
+     * This can happen either because this script is run in a different extension for backwards-compat,
+     * or because the provider is being injected late for another reason (platform specific).
+     */
+    const lazyProvider = new Proxy(window.ethereum, {
+      get: function(target, prop, receiver) {
+        return Reflect.get(window.ethereum, prop, receiver);
+      }
+    })
+
+    const web3 = new Web3(lazyProvider)
+
     web3.setProvider = function () {
       console.log(getMessage('Overrode web3.setProvider.'))
     }
