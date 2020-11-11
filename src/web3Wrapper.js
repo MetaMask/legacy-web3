@@ -1,5 +1,4 @@
 require('web3/dist/web3.min.js')
-const detectEthereumProvider = require('@metamask/detect-provider')
 
 const getMessage = (message) => `@metamask/legacy-web3 - ${message}`
 const getExitMessage = (message) => `${getMessage(message)} Exiting without initializing window.web3.`
