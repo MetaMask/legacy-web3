@@ -105,7 +105,7 @@ function setupWeb3 () {
       return
     }
 
-    // if chain did not change, exit
+    // if chain did not change, skip reload
     if (currentChainId === previousChainId) {
       return
     }
