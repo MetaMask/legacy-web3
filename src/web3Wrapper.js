@@ -50,6 +50,7 @@ function setupWeb3 () {
   }
   console.log(getMessage('Injected web3.'))
 
+  // update the default account when the revealed accounts change
   window.ethereum.on('accountsChanged', (accounts) => {
     web3.eth.defaultAccount = Array.isArray(accounts) && accounts.length > 0
       ? accounts[0]
