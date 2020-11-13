@@ -41,14 +41,35 @@ function setupWeb3 () {
     get (_target, prop, receiver) {
       return Reflect.get(window.ethereum, prop, receiver)
     },
+    set (_target, sKey, vValue) {
+      return Reflect.set(window.ethereum, sKey, vValue)
+    },
+    deleteProperty (_target, sKey) {
+      return Reflect.deleteProperty(window.ethereum, sKey)
+    },
+    enumerate (_target, sKey) {
+      return Object.keys(window.ethereum)
+    },
+    ownKeys (_target, sKey) {
+      return Reflect.ownKeys(window.ethereum)
+    },
+    has (_target, sKey) {
+      return Reflect.has(window.ethereum, sKey)
+    },
+    defineProperty (_target, sKey, oDesc) {
+      return Reflect.defineProperty(window.ethereum, oKey, oDesc)
+    },
+    getOwnPropertyDescriptor (_target, sKey) {
+      return Reflect.getOwnPropertyDescriptor(window.ethereum, sKey)
+    },
   })
 
   const web3 = new Web3(lazyProvider)
 
   web3.setProvider = function () {
-    console.log(getMessage('Overrode web3.setProvider.'))
+    console.warn(getMessage('Overrode web3.setProvider.'))
   }
-  console.log(getMessage('Injected web3.'))
+  console.log(getMessage('Injected web3.js'))
 
   // update the default account when the revealed accounts change
   window.ethereum.on('accountsChanged', (accounts) => {
