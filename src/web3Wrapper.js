@@ -38,7 +38,9 @@ function setupWeb3 () {
       return
     }
 
-    if (window.web3) {
+    // MetaMask will continue to inject a web3 Proxy, with this hidden
+    // identifier
+    if (window.web3 && !window.web3['__isMetaMaskProxy__']) {
       console.log(getExitMessage('Detected existing window.web3.'))
       return
     }
