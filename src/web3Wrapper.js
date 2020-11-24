@@ -73,7 +73,7 @@ function setupWeb3 () {
     } else {
       const req = { method: 'eth_accounts' }
 
-      if (typeof ethereum.request === 'function') {
+      if (typeof window.ethereum.request === 'function') {
         window.ethereum.request(req)
           .then(handleAccounts)
           .catch(() => undefined)
