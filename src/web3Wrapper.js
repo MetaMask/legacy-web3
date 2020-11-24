@@ -71,14 +71,19 @@ function setupWeb3 () {
     if (window.ethereum.selectedAddress) {
       web3.eth.defaultAccount = window.ethereum.selectedAddress
     } else {
-      window.ethereum.sendAsync(
-        { method: 'eth_accounts' },
-        (error, response) => {
+      const req = { method: 'eth_accounts' }
+
+      if (typeof ethereum.request === 'function') {
+        window.ethereum.request(req)
+          .then(handleAccounts)
+          .catch(() => undefined)
+      } else {
+        window.ethereum.sendAsync(req, (error, response) => {
           if (!error && response) {
             handleAccounts(response.result)
           }
-        },
-      )
+        })
+      }
     }
     window.ethereum.on('accountsChanged', handleAccounts)
 
