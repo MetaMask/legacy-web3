@@ -10,7 +10,7 @@ module.exports = {
       format: 'iife',
       plugins: [
         terser(),
-      ]
+      ],
     },
     {
       file: 'dist/index.js',
@@ -22,5 +22,5 @@ module.exports = {
     commonjs({
       sourceMap: false,
     }),
-  ]
+  ],
 }
