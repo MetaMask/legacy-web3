@@ -33,7 +33,12 @@ function setupWeb3 () {
   function _setupWeb3 () {
 
     // if used before MetaMask stops injecting window.web3
-    if (window.ethereum && window.ethereum.isMetaMask && window.web3) {
+    if (
+      window.ethereum &&
+      window.ethereum.isMetaMask &&
+      window.web3 &&
+      !window.web3.__isMetaMaskShim__
+    ) {
       console.log(getExitMessage('Detected MetaMask-injected window.web3.'))
       return
     }
