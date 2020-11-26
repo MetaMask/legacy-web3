@@ -14,7 +14,7 @@ module.exports = {
     },
     {
       file: 'dist/index.js',
-      format: 'cjs',
+      format: 'umd',
     },
   ],
   plugins: [
