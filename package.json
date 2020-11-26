@@ -4,10 +4,11 @@
   "description": "MetaMask's legacy window.web3.",
   "browser": "dist/metamask.web3.min.js",
   "files": [
-    "dist/metamask.web3.min.js"
+    "dist/*.js"
   ],
+  "main": "dist/index.js",
   "scripts": {
-    "build": "rollup -c",
+    "build": "mkdir -p dist && rm -rf dist/* && rollup -c",
     "lint": "eslint . --ext js,json",
     "lint:fix": "eslint . --ext js,json --fix",
     "prepublishOnly": "yarn lint && yarn build",
