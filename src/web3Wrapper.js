@@ -67,11 +67,30 @@ function setupWeb3 () {
     }
     console.log(getMessage('Injected web3.'))
 
-    window.ethereum.on('accountsChanged', (accounts) => {
+    const handleAccounts = (accounts) => {
       web3.eth.defaultAccount = Array.isArray(accounts) && accounts.length > 0
         ? accounts[0]
         : null
-    })
+    }
+
+    if (window.ethereum.selectedAddress) {
+      web3.eth.defaultAccount = window.ethereum.selectedAddress
+    } else {
+      const req = { method: 'eth_accounts' }
+
+      if (typeof window.ethereum.request === 'function') {
+        window.ethereum.request(req)
+          .then(handleAccounts)
+          .catch(() => undefined)
+      } else {
+        window.ethereum.sendAsync(req, (error, response) => {
+          if (!error && response) {
+            handleAccounts(response.result)
+          }
+        })
+      }
+    }
+    window.ethereum.on('accountsChanged', handleAccounts)
 
     // export web3 as a global, checking for usage
     let reloadInProgress = false
