@@ -6,7 +6,7 @@
   "files": [
     "dist/*.js"
   ],
-  "main": "dist/index.js",
+  "main": "dist/metamask.web3.js",
   "scripts": {
     "build": "mkdir -p dist && rm -rf dist/* && rollup -c",
     "lint": "eslint . --ext js,json",

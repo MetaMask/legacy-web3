@@ -13,7 +13,7 @@ module.exports = {
       ],
     },
     {
-      file: 'dist/index.js',
+      file: 'dist/metamask.web3.js',
       format: 'umd',
     },
   ],
