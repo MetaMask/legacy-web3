@@ -31,6 +31,8 @@ As a `<script>` in your web page:
   <head>
     <!-- The legacy-web3 script must run BEFORE your other scripts. -->
     <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.min.js"></script>
+    <!-- Or: -->
+    <script src="https://unpkg.com/@metamask/legacy-web3@latest/dist/metamask.web3.js"></script>
     ...
   </head>
   <body>
