@@ -1,4 +1,4 @@
-require('web3/dist/web3.min.js')
+require('web3/dist/web3.js')
 const detectEthereumProvider = require('@metamask/detect-provider')
 
 const getMessage = (message) => `@metamask/legacy-web3 - ${message}`
