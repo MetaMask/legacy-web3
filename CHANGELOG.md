@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2021-01-15
+
+### Changed
+
+- **(SEMVER-MAJOR)** Rename and completely un-minify main entry point file ([#24](https://github.com/MetaMask/legacy-web3/pull/24))
+  - Main entry point renamed from `index.js` to `metamask.web3.js`.
+  - Consumers importing this package as a module should be unaffected.
+
 ## [1.2.0] - 2020-11-25
 
 ### Fixed
@@ -30,7 +38,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.0.0] - DEPRECATED
 
-[Unreleased]:https://github.com/MetaMask/legacy-web3/compare/v1.1.0...HEAD
+[Unreleased]:https://github.com/MetaMask/legacy-web3/compare/v2.0.0...HEAD
+[2.0.0]:https://github.com/MetaMask/legacy-web3/compare/v1.2.0...v2.0.0
+[1.2.0]:https://github.com/MetaMask/legacy-web3/compare/v1.1.0...v1.2.0
 [1.1.0]:https://github.com/MetaMask/legacy-web3/compare/v1.0.2...v1.1.0
 [1.0.2]:https://github.com/MetaMask/legacy-web3/compare/v1.0.1...v1.0.2
 [1.0.1]:https://github.com/MetaMask/legacy-web3/compare/v1.0.0...v1.0.1
