@@ -71,3 +71,4 @@ This package will only initialize `window.web3` under the following circumstance
 
 `window.ethereum.isMetaMask` can be `true` or falsy.
 If it is falsy and there is no existing `window.web3`, this package will initialize its `window.web3`, but there are no guarantees that it will work with non-MetaMask providers.
+test
